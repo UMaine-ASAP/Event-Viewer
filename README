@@ -1,0 +1,25 @@
+TODO James add an index.html file with the bootstrap wireframe we discussed.
+     link with libraries in the repo:
+     <script src="./lib/jquery/jquery.min.js"></script>
+     the bootstrap lib is in a similar location like "lib/bootstrap/dist/js/" and then find the files you need to include.
+     Please commit and push when this wireframe file is ready.
+
+TO ALL
+   Please work and commit locally until you have important changes that are needed by other team members.
+
+   Git Commands
+   Clone Repository:
+   mkdir <name of directory for your local project>
+   cd <name of directory for your local project>
+   git clone http://git.asap.um.maine.edu/eventviewer2014/eventviewer.git
+   
+   Add files to repo:
+   // Anytime you add new files or folders to the project be sure to add the files to to repo go to the root directory of the project and use
+   git add * or
+   git add relative/path/to/file
+
+   Commit locally:
+   git commit -m 'Insert Comments here. Add a comment to every commit'
+
+   Push your local chages to the master reopsitory:
+   git push

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+		<!-- jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap.css" charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="..//bootstrap/bootstrap-theme.css" charset="utf-8" />
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Bootstrap JS -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+        <!-- Styles -->
+        <link rel="stylesheet" type="text/css" href="theme.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../temp/style.css" charset="utf-8" />
+
+        <!-- My Scripts -->
+        <script src="dquery_interface.js"></script>
+        <script src="dtree_explorer.js"></script>
+        <script src="dscript.js"></script>
+    </head>
+
+    <body>
+    	<!-- Icon Searcher -->
+	    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+
+    	<div id="app_container">
+	    	<div id="query_container" class="fluid-container" style="left:0%">
+		    	<div class="row">
+					<div class="col-xs-12 col-sm-8 col-md-6"><h1>Event Viewer</h1></div>
+					<div class="col-xs-0 col-sm-4 col-md-6"></div>
+				</div>
+				
+				<div class="row">
+					<ul class="nav nav-tabs">
+						<li role="presentation">
+							<a href="#events_tab" aria-controls="events_tab" role="tab" data-toggle="tab">Event</a>
+						</li>
+						<li role="presentation">
+							<a href="#locations_tab" aria-controls="locations_tab" role="tab" data-toggle="tab">Location</a>
+						</li>
+						<li role="presentation">
+							<a href="#times_tab" aria-controls="times_tab" role="tab" data-toggle="tab">Time</a>
+						</li>
+						<li role="presentation" class="active">
+							<a href="#instruct_tab" aria-controls="instruct_tab" role="tab" data-toggle="tab">?</a>
+						</li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<!-- Instructions Tab -->
+						<div role="tabpanel" class="tab-pane fade in active" id="instruct_tab">
+							<div class="col-xs-12 col-sm-12 col-md-12 instruct_tab_container clearfix">
+								Choose a tab to begin selecting filters.
+							</div>
+						</div>
+						<!-- Events Tab -->
+						<div role="tabpanel" class="tab-pane fade" id="events_tab">
+							<div class="col-xs-12 col-sm-12 col-md-12 filter_level_container clearfix">
+							</div>
+						</div>
+						<!-- Location Tabs -->
+						<div role="tabpanel" class="tab-pane fade" id="locations_tab">
+							<div class="col-xs-12 col-sm-12 col-md-12 filter_level_container clearfix">
+							</div>
+						</div>
+						<!-- Time Tabs -->
+						<div role="tabpanel" class="tab-pane fade" id="times_tab">
+							<div id="ranger" class="col-xs-12 col-sm-12 col-md-12 ">
+								<div class="pull-left date-input">
+									<label for="from">From</label>
+									<input type="text" id="from" name="from">
+								</div>
+								<div class="pull-right date-input">
+									<label for="To">to</label>
+									<input type="text" id="to" name="to">
+								</div>
+								<div id="ranger" class="col-xs-12 col-sm-12 col-md-12">
+									<div id="slider"></div>
+								</div>
+							</div>
+						
+							<div class="col-xs-12 col-sm-12 col-md-12 filter_level_container clearfix">
+							</div>
+						</div>
+					</div>
+						
+					
+				</div>
+				<div clas="row">
+					
+					<div class="panel panel-default filter_bin_container">
+						<div class="panel-heading">Select Filters</div>
+					</div>
+				</div>
+
+				<!-- Filter Bin Row -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 query_bin_container">
+
+						<div class="col-xs-4 col-sm-4 col-md-4">
+							<div class="bin"><ul class="binscroll" id="bev"></ul><div class="bintitle">Drop<br/> Filters</div></div>
+						</div>
+						<div class="col-xs-4 col-sm-4 col-md-4">
+							<div class="bin"><ul class="binscroll" id="bev"></ul><div class="bintitle">Drop<br/> Filters</div></div>
+						</div>
+						<div class="col-xs-4 col-sm-4 col-md-4">
+							<div class="bin"><ul class="binscroll" id="bev"></ul><div class="bintitle">Drop<br/> Filters</div></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div  class="col-md-9">
+				<div id='qbutton' class="col-md-3">
+					<button id="continue" type="button">Query</button>
+				</div>
+	        </div>
+        </div>
+        <div id="results_container" style="display: none; left: 100%"></div>
+       
+        <!-- Templates -->
+		<script id="filter_browser_pane_tpl" type="text/template">
+	    <div class="col-xs-3 col-sm-3 col-md-3">
+			<div class="panel panel-default browser-pane">
+				<div class="panel-heading"><h5 class="panel-title"></h5></div>
+				<div class="panel-body"><ul class="nav nav-pills nav-stacked"></ul></div>
+			</div>
+		</div>
+	    </script>
+
+	    <script id="filter_browser_slug_tpl" type="text/template">
+	    	<li class="filter_browser_li clearfix" role="presentation" data-toggle="pill">
+	    		
+	    		<a href="#">
+	    		<h6>
+	    			<span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
+	    			<span class="slug-name"></span>
+	    			<span class="slug-badge badge">42</span>
+    			</h6></a>
+    			
+	    	</li>
+	    </script>
+	    
+	</body>
+</html>

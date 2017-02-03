@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <title>Hierarchy Example</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+		  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+      <script src="query_interface.js"></script>
+      <script src="tree_explorer.js"></script>
+      <script src="script.js"></script>
+    </head>
+    <body>
+      <div id="root_event" class="root">
+        <div class="filter_container">
+      		<ul class="filter_list">
+
+      		</ul>
+      		<ul class="filter_bin"></ul>
+      	</div>
+    	</div>
+
+       <div id="root_location" class="root">
+        <div class="filter_container">
+          <ul class="filter_list">
+
+          </ul>
+          <ul class="filter_bin"></ul>
+        </div>
+      </div>
+
+      <div id="root_time" class="root">
+        <div class="filter_container">
+          <ul class="filter_list">
+
+          </ul>
+          <ul class="filter_bin"></ul>
+        </div>
+      </div>
+
+      <script id="level_container_tpl" type="text/template">
+      		<li class="level">
+      			<ul class="level_cat"></ul>
+      			<ul class="level_list"></ul>
+      		</li>
+      </script>
+
+  		<script id="level_slug_tpl" type="text/template">
+    			<li class="slug"><span class='filter_label'></span><span class='filter_count'>(2)</span></li>
+  		</script>
+
+      <script id="filter_container_tpl" class="filter_container" type="text/template">
+        <li class="ev_filter">
+          <div>
+            <h6 class="ev_filter_title"><span class="icon-remove-sign"></span></h6>
+          </div>
+          <ul class="ev_filter_data"></ul>
+        </li>
+      </script>
+      
+	</body>
+</html>

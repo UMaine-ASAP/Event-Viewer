@@ -1,0 +1,292 @@
+<!-- sources:
+	http://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=create-dynamic-tabs-via-data-attribute
+	-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<!-- eventviewer -->
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="bootstrap/bootstrap-theme.css" charset="utf-8" />
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="style/theme.css" charset="utf-8" />
+		<!--<link rel="stylesheet" type="text/css" href="style/accordion.css" charset="utf-8" />-->
+		<link rel="stylesheet" type="text/css" href="style/RV.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="style/loading.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="style/reset.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="temp/style.css" charset="utf-8" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<!--<script src="script/jsui.js"></script>-->
+		<script src="temp/query_interface.js"></script>
+		<script src="temp/tree_explorer.js"></script>
+		<script src="temp/script.js"></script>
+		<link rel="stylesheet" type="text/css" href="style/bootstrap/bootstrap.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="style/bootstrap/bootstrap-theme.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="style/theme.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="style/accordion.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="style/RV.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="style/loading.css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="style/reset.css" charset="utf-8" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script src="script/jsui.js"></script>
+
+		<!-- bootstrap -->
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+		<style>
+
+			.shadowBox {
+				border:1px solid black;
+				margin-left: 50px;
+				margin-top: 10px; 
+				background-color:white; 
+				box-shadow: 5px 5px 10px gray;
+				padding: 10px;
+			}
+
+			.close {
+			    float:right;
+			    display:inline-block;
+			    padding:0px 3px;
+			    background:#ccc;
+			    border-radius: 50%;
+			    font-size: 75%;
+			    margin: 4px;
+			}
+
+			.filterBox {
+				border:1px solid black; 
+				margin:3px; 
+				padding-left: 3px;
+			}
+
+			.activeFL {
+				border:1px solid black; 
+				margin: 10px;
+				padding: 5px;
+				max-height: 300px; 
+				overflow-y:scroll;
+			}
+
+			.inactiveFL {
+				border:1px dotted gray; 
+				margin: 10px;
+				padding: 5px;
+				max-height: 300px; 
+				overflow-y:scroll;
+			}
+
+			.activeFLBox {
+				border:1px solid black; 
+				margin:3px; 
+				padding-left: 3px
+			}
+
+			.inactiveFLBox {
+				border:1px 
+				solid gray; 
+				margin:3px; 
+				padding-left: 3px; 
+				color: gray
+			}
+
+			.btnStyle {
+				position: absolute; 
+				left: 50%;
+				margin: 10px;
+				box-shadow: 2px 2px 5px gray;
+				font-weight: bold;
+				font-size: 20px;
+			}
+
+			.dropdown {
+				max-height: 200px;
+				overflow-y: scroll;
+			}
+
+			.letBox {
+				height: 400px;
+			}
+
+			.filterbox {
+				max-height: 100px; 
+				overflow-y:scroll;
+			}
+
+		</style>
+	</head>
+
+	<body style="background-color:#E6E6FA">
+
+		<!-- Title -->
+		<div class = "col-md-11 title shadowBox">
+			<h1>Event Viewer</h1>
+		</div>
+
+		<!-- Section 1 -->
+		<div class="col-md-11 letBox shadowBox">
+			<!-- Tabs -->
+		    <ul class="nav nav-tabs">
+		        <li class="active"><a data-toggle="tab" href="#location">Location</a></li>
+		        <li><a data-toggle="tab" href="#event">Event</a></li>
+		        <li><a data-toggle="tab" href="#time">Time</a></li>
+		    </ul>
+		    <div class="tab-content">
+
+		        <div id="location" class="tab-pane fade in active">
+
+		            <h3>Location</h3>
+					<br>
+
+					<div class="col-md-2">
+						<h4 class="location_0"></h4>
+						<ul class="dropdown dropdown_location_0 Source" multiple="multiple"></ul>
+					</div>
+
+					<div class="col-md-2">
+						<h4 class="location_1"></h4>
+						<ul class="dropdown dropdown_location_1 GACode" multiple="multiple"></ul>
+					</div>
+
+					<div class="col-md-2">
+						<h4  class="location_2"></h4>
+						<ul class="dropdown dropdown_location_2 LocationName" multiple="multiple"></ul>
+					</div>
+
+					<div class="col-md-2">
+						<h4 class="location_3"></h4>
+						<ul class="dropdown dropdown_location_3 GrowingArea" multiple="multiple"></ul>
+					</div>
+
+					<div class="col-md-2">
+						<h4  class="location_4"></h4>
+						<ul class="dropdown dropdown_location_4 Type" multiple="multiple"></ul>
+					</div>
+
+		        </div>
+
+		        <div id="event" class="tab-pane fade">
+
+		            <h3>Event</h3>
+
+		            <br>
+
+		            <div class="col-md-3">
+						<h4 class="event_0"></h4>
+						<ul class="dropdown dropdown_event_0 Domain" multiple="multiple"></ul>
+					</div>
+
+					<div class="col-md-3">
+						<h4 class="event_1"></h4>
+						<ul class="dropdown dropdown_event_1 Variable" multiple="multiple"></ul>
+					</div>
+
+					<div class="col-md-3">
+						<h4 class="event_2"></h4>
+						<ul class="dropdown dropdown_event_2 Type" multiple="multiple"></ul>
+					</div>
+
+					<div class="col-md-3">
+						<h4 class="event_3"></h4>
+						<ul class="dropdown dropdown_event_3 Property" multiple="multiple"></ul>
+					</div>
+		        </div>
+
+		        <div id="time" class="tab-pane fade">
+		            <h3>Time</h3>
+		            <p>This will be time information.</p>
+		        </div>
+		        
+		        
+		    </div>
+		 </div>
+
+		 <!-- Section 2 -->
+		<div class="col-md-11 shadowBox filterbox">
+			<p> Middle Section, filters </p>
+			<ul class="col-md-12" style="list-style-type: none;">
+				<li class = "filterBox">Box 1 <span class='close'>x</span></li>
+				<li class = "filterBox">Box 2 <span class='close'>x</span></li>
+				<li class = "filterBox">Box 3 <span class='close'>x</span></li>
+				<li class = "filterBox">Box 4 <span class='close'>x</span></li>
+				<li class = "filterBox">Box 5 <span class='close'>x</span></li>
+				<li class = "filterBox">Box 6 <span class='close'>x</span></li>
+			</ul>
+		</div>
+
+		<!-- Section 3 -->
+		<div class="col-md-11 shadowBox">
+			<p> Bottom Section, filter lists </p>
+			<div class="col-md-3 activeFL">
+				<ul class="col-md-12" style="list-style-type: none;">
+					<li class="activeFLBox">Box 1 <span class='close'>x</span></li>
+					<li class="activeFLBox">Box 2 <span class='close'>x</span></li>
+					<li class="activeFLBox">Box 3 <span class='close'>x</span></li>
+				</ul>
+			</div>
+
+			<div class="col-md-3 activeFL">
+				<ul class="col-md-12" style="list-style-type: none">
+					<li class="activeFLBox">Box 1 <span class='close'>x</span></li>
+					<li class="activeFLBox">Box 2 <span class='close'>x</span></li>
+					<li class="activeFLBox">Box 3 <span class='close'>x</span></li>
+				</ul>
+			</div>
+
+			<div class="col-md-3 inactiveFL">
+				<ul class="col-md-12" style="list-style-type: none">
+					<li class="inactiveFLBox">Box 1 <span class='close'>x</span></li>
+					<li class="inactiveFLBox">Box 2 <span class='close'>x</span></li>
+					<li class="inactiveFLBox">Box 3 <span class='close'>x</span></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Query Button -->
+		<div class="col-md-11" style="text-align: center; margin-top: 20px">
+			<button type="button" class="btn btn-default btnStyle">Query</button>
+		</div>
+
+		<!-- eventviewer scripts -->
+
+		<script id="filter_container_tpl" class="filter_container" type="text/template">
+		  <li class="ev_filter">
+			<div>
+			  <h6 class="ev_filter_title"><span class="fa fa-times-circle"></span></h6>
+			</div>
+			<ul class="ev_filter_data"></ul>
+		  </li>
+		</script>
+
+		<!-- mine -->
+		<script id="ruth_container" type="text/template">
+			<ul class="listitems"></ul>
+		</script>
+
+		<script id="ruth_slug_tpl" type="text/template">
+			<li class="ruth_slug"><span class='filter_label'></span><span class='filter_count'>(2)</span></li>
+		</script>
+
+
+		<script src="script/bootstrap.min.js"></script>
+		<script src="script/bootstrap.js"></script>
+		<script src="script/d3.v3.js"></script>
+		<script src="script/RV_Classes.js"></script>
+		<script src="script/RVtimebar.js"></script>
+		<script src="script/RV.js"></script>
+
+	</body>
+</html>                                		

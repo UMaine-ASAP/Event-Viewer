@@ -1,0 +1,272 @@
+
+//NOTE: Using a modified "compatibility" version of d3.v3.js where the d3 attr and append methods are d3attr and d3append
+
+var dates = [new Date(2007,12,1), new Date(2008,11,31)]
+
+var margin = {top: 10, right: 10, bottom: 100, left: 40},
+               margin2 = {top: 430, right: 10, bottom: 20, left: 40},
+               width = 960 - margin.left - margin.right,
+               height = 500 - margin.top - margin.bottom,
+               height2 = 500 - margin2.top - margin2.bottom;
+
+var parseDate = d3.time.format("%b %Y").parse;
+
+var x = d3.time.scale().range([0, width]),
+    x2 = d3.time.scale().range([0, width]),
+   y = d3.scale.linear().range([height, 0]),
+   y2 = d3.scale.linear().range([height2, 0]);
+
+var xAxis2 = d3.svg.axis().scale(x2).orient("bottom").tickFormat(d3.time.format("%B")),
+   yAxis = d3.svg.axis().scale(y).orient("left");
+
+var brush = d3.svg.brush()
+   .x(x2)
+   .on("brushend", brushed)
+   .on("brushstart", displaySelection)
+   .on("brush", updateSelection)
+
+var area2 = d3.svg.area()
+   .interpolate("monotone")
+
+d3.select('#results_container').d3append('div').d3attr("id","tb_container")
+
+d3.select("#results_container #tb_container")
+	.d3append("div")
+	.d3attr("id", "floating")
+	.d3append("svg")
+       .d3attr("width", 1150)
+       .d3attr("height", 85)
+       .d3attr("id","tbar")
+
+d3.select("#floating")
+   .d3attr("style","position:fixed; bottom:0;left:0; width:1000px; height:80px; z-index: 2; margin-left:"+ML2+"px;");
+
+d3.select("#results_container #tb_container")
+	.d3append("div")
+	.d3attr("id", "floatingBG")
+	.d3attr("style","position:fixed; bottom:0;left:0; width:1100px; height:80px; z-index: 1; margin-left:"+ML1+"px; background-color:#363636; opacity:.3;")
+
+d3.select("#tbar")
+.d3append("defs")
+.d3html('<linearGradient id="lgrad" x1="0%" y1="50%" x2="100%" y2="50%" >' +
+'<stop offset="0%" style="stop-color:rgb(171,36,48);stop-opacity:1" />'+
+'<stop offset="25%" style="stop-color:rgb(128,27,35);stop-opacity:1" />'+
+'<stop offset="50%" style="stop-color:rgb(191,40,53);stop-opacity:1" />'+
+'<stop offset="75%" style="stop-color:rgb(128,27,35);stop-opacity:1" />'+
+'<stop offset="100%" style="stop-color:rgb(171,36,48);stop-opacity:1" />'+
+'</linearGradient>')
+.d3append("clipPath")
+   .d3attr("id", "clip")
+
+var context = d3.select("#tbar").d3append("g")
+   .d3attr("class", "context")
+   .d3attr("transform", "translate(" + 150 + "," + 0 + ")")
+
+d3.select('#tb_container')
+  .d3append('div')
+    .d3attr('id','resetdiv')
+    .d3attr("style","position:fixed; bottom:0;left:0; width:1400px; height:80px; z-index: 1; margin-left:"+ML1+"px;")
+  .d3append('button')
+    .d3attr('class', 'tbButton')
+    .d3attr('id', 'tbReset')
+    .d3attr('style', 'width:45px; margin-left:1030px; margin-top:20px; z-index:5;')
+    .d3html('Reset')
+
+function initUniTimebar() {
+
+ x2.domain(dates);
+
+ y.domain([0, 100]);
+ 
+ y2.domain(y.domain());
+
+ context.d3append("path")
+     .d3attr("class", "area")
+     .d3attr("fill","url(#lgrad)")
+
+ context.d3append("g")
+     .d3attr("class", "xaxis")
+     .d3attr("transform", "translate(0," + height2 + ")")
+     .call(xAxis2);
+
+  d3.select('.xaxis')
+    .selectAll('text').d3attr('style','text-anchor:middle; font-size:15px;')
+
+  context.d3append("g")
+     .d3attr("class", "xbrush")
+     .call(brush)
+   .selectAll("rect")
+     .d3attr("y", 30)
+     .d3attr("height", 20)
+  d3.select('.extent')
+    .d3attr('style', 'fill:rgb(255,255,255);fill-opacity:1.0;pointer-events: all;')
+    .d3attr('height',18)
+  d3.select('.e rect')
+    .d3attr('style','visibility:visibile; fill:#e74c3c;')
+    .d3attr('width', 10)
+
+  d3.select('.w rect')
+    .d3attr('style','visibility:visibile; fill:#e74c3c;')
+    .d3attr('width', 10)
+
+  for (var i = 0; i < 3; i++) {
+    d3.select('.e').d3append('rect')
+      .d3attr('x', (i*2+2) -3)
+      .d3attr('y', 33)
+      .d3attr('style', 'fill:#fff;')
+      .d3attr('width', 1)
+      .d3attr('height', 15)
+
+    d3.select('.w').d3append('rect')
+      .d3attr('x', (i*2+2) -3)
+      .d3attr('y', 33)
+      .d3attr('style', 'fill:#fff;')
+      .d3attr('width', 1)
+      .d3attr('height', 15)
+  }
+  d3.select('.background')
+    .d3attr('style', 'visibility:visibile;')
+    .d3attr('height', 18)
+
+}
+initUniTimebar()
+
+function brushed() {
+	x.domain(brush.empty() ? x2.domain() : brush.extent());
+
+ 	dates = brush.extent();
+  var scrollpos = $(window).scrollTop()
+  $('.panelRV').remove()
+  r.build()
+  $(window).scrollTop(scrollpos)
+  //fadeout
+  dateBoxManager('fadeout')
+}
+
+function displaySelection () {
+  var setX = d3.select('.extent').d3attr('x')
+  d3.select('.xbrush')
+    .d3append('g')
+    .d3attr('class', 'displaySelection')
+    .d3append('rect')
+    .d3attr('height', 20)
+    .d3attr('width',140)
+    .d3attr('y', 4)
+    .d3attr('x', setX)
+    .d3attr('style','fill:#fff;stroke:#808080; visibility:hidden;')
+  d3.select('.displaySelection')
+    .d3append('text')
+    .d3attr('x', setX)
+    .d3attr('y', 7)
+    .d3attr('fill','#e74c3c')
+    .d3attr('transform', 'translate(12,12)')
+    .d3attr('style', 'font-size:15px; visibility:hidden;')
+}
+
+function updateSelection () {
+  var setX = d3.select('.extent').d3attr('x')
+  var setW = d3.select('.extent').d3attr('width') /2
+  var setFinal = parseFloat(setX) + (parseFloat(setW)/2)
+  var datestrings = [brush.extent()[0].toString(), brush.extent()[1].toString()]
+  var dateForUse = datestrings[0].toString().substring(4,10) + " to " + datestrings[1].substring(4,10)
+  d3.select('.displaySelection rect')
+    .d3attr('x', setFinal)
+    .d3attr('style','fill:#fff;stroke:#808080; visibility:visibile;')
+  d3.select('.displaySelection text')
+    .d3attr('x', setFinal)
+    .d3attr('style', 'font-size:15px; visibility:visibile;')
+    .d3html(dateForUse)
+}
+
+var fading = false
+var removedEarly = false
+var storedMode = d3.currentMode
+function dateBoxManager (request) {
+  var amount = $('.displaySelection').length
+  if (request=='remove') {
+    if (amount && !fading) {
+      $('.displaySelection').remove()
+    } else if (amount && fading) {
+      removedEarly = true
+      fading=false
+      $('.displaySelection').remove()
+    }
+  } else if(request=='fadeout'){
+    if (amount && !fading) {
+      fading=true
+      $('.displaySelection').fadeOut('slow', function() {
+        if (!removedEarly) {
+          dateBoxManager('remove')
+          fading=false
+        } else {
+          removedEarly = false
+        }
+      })
+    }
+  } else if(request=='add'){
+    if (!amount) {
+      displaySelection()
+      updateSelection()
+    } else if(amount && fading){
+      dateBoxManager('remove')
+      displaySelection()
+      updateSelection()
+    } else if(amount && !fading){
+
+    }
+  }
+}
+
+$(window).mousemove(function(event) {
+  //act on changes
+  if (storedMode=='move' && d3.currentMode!='move') {
+    storedMode = d3.currentMode
+    dateBoxManager('fadeout')
+  } else if (storedMode=='resize' && d3.currentMode!='resize') {
+    storedMode = d3.currentMode
+    dateBoxManager('fadeout')
+  }
+  //update
+  if (storedMode!=d3.currentMode) {
+    storedMode = d3.currentMode
+  }
+  //act on update
+  if (storedMode=='move') {
+    dateBoxManager('add')
+  } else if (storedMode=='resize') {
+    dateBoxManager('add')
+  }
+})
+
+$(function () {
+    $('.extent').mouseover(function(event) {
+    //add
+    dateBoxManager('add')
+  })
+  $('.extent').mouseout(function(event) {
+    //fadeout
+    dateBoxManager('fadeout')
+  })
+})
+
+$(function () {
+  $('#resetdiv #tbReset').click(function(event) {
+    dates = [new Date(2007,12,1), new Date(2008,11,31)]
+    $('.e').attr({
+      transform: 'translate(0,0)',
+      style: 'display:none;'
+    })
+    $('.w').attr({
+      transform: 'translate(0,0)',
+      style: 'display:none;'
+    })
+    $('.extent').attr({
+      x: '0',
+      width: '0'
+    });
+    brush.clear()
+    $('.panelRV').remove()
+    r.build()
+  })
+})
+

@@ -1,0 +1,111 @@
+<link rel="stylesheet" href="accordion.css" type="text/css" charset="utf-8">
+<div id="accordian">
+	<ul>
+		<li class="root-item">
+			<h3><span class="icon-sitemap"></span>Root</h3>
+			<ul>
+				<li>
+					<h3><span class="icon-bar-chart"></span>Event</h3>
+					<ul>
+						<li><a href="#">Reports</a></li>
+						<li><a href="#">Search</a></li>
+						<li><a href="#">Graphs</a></li>
+						<li><a href="#">Settings</a></li>
+					</ul>
+				</li>
+				<!-- we will keep this LI open by default -->
+				<!-- <li class="active"> -->
+				<li>					
+					<h3><span class="icon-globe"></span>Location</h3>
+					<ul>
+						<li>
+							<h3>Buoy A</h3>
+							<ul>
+								<li><a href="#">depth: 1m</a></li>
+								<li><a href="#">depth: 5m</a></li>
+								<li><a href="#">depth: 10m</a></li>
+								<li><a href="#">depth: 25m</a></li>
+							</ul>
+						</li>
+						<li>
+							<h3>Buoy B</h3>
+							<ul>
+								<li><a href="#">depth: 1m</a></li>
+								<li><a href="#">depth: 5m</a></li>
+								<li><a href="#">depth: 10m</a></li>
+								<li><a href="#">depth: 25m</a></li>
+							</ul>
+						</li>
+						<li>
+							<h3>Bouy C</h3>
+							<ul>
+								<li><a href="#">depth: 1m</a></li>
+								<li><a href="#">depth: 5m</a></li>
+								<li><a href="#">depth: 10m</a></li>
+								<li><a href="#">depth: 25m</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<h3><span class="icon-calendar"></span>Time</h3>
+					<ul>
+						<li><a href="#">Current Month</a></li>
+						<li><a href="#">Current Week</a></li>
+						<li><a href="#">Previous Month</a></li>
+						<li><a href="#">Previous Week</a></li>
+						<li><a href="#">Next Month</a></li>
+						<li><a href="#">Next Week</a></li>
+						<li><a href="#">Team Calendar</a></li>
+						<li><a href="#">Private Calendar</a></li>
+						<li><a href="#">Settings</a></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<!-- prefix free to deal with vendor prefixes -->
+<script src="http://thecodeplayer.com/uploads/js/prefixfree-1.0.7.js" type="text/javascript" type="text/javascript"></script>
+
+<!-- jQuery -->
+<script src="http://thecodeplayer.com/uploads/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" charset="utf-8">
+/*jQuery time*/
+$(document).ready(function(){
+	//Build a table
+	
+	
+	//Handle opening/closing of menus
+	$("#accordian h3").click(function(evt){
+		//Tree Manager
+		if(!$(this).parent("li").hasClass("root-item")){
+			//Manage opening and closing
+			if($(this).parent("li").next().is(":visible") || $(this).parent("li").prev().is(":visible")){
+				// IF opening THEN hide siblings
+				$(this).parent("li").siblings("li").slideUp();
+				// AND open the current sublist
+				$(this).next("ul").slideDown();
+				
+			} else {
+				// IF closing THEN re-show siblings
+				$(this).parent("li").siblings("li").slideDown();
+				// AND show all nested items
+				$(this).parent("li").find("li").slideDown();
+				// AND hide the current and all nested sublists
+				$(this).parent("li").find("ul").slideUp();
+			}
+		}else{
+		// Reset the Table to original state
+			//If root THEN show all show all nested items
+			$(this).parent("li").find("ul li").slideDown();
+			// AND hide the all nested sublists
+			$(this).parent("li").find("ul ul").slideUp();
+			// AND show current ul
+			$(this).next("ul").slideDown();
+		}
+	})
+});
+</script>

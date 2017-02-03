@@ -1,0 +1,172 @@
+<link rel="stylesheet" href="accordion.css" type="text/css" charset="utf-8">
+<div id="accordian">
+	<ul>
+		<li class="root-item">
+			<h3><span class="icon-sitemap"></span>Root</h3>
+			<ul>
+				<!--
+				<li class="active">
+					<h3><span class="icon-bar-chart"></span>Event</h3>
+					<ul>
+						<li><a href="#">Reports</a></li>
+						<li><a href="#">Search</a></li>
+						<li><a href="#">Graphs</a></li>
+						<li><a href="#">Settings</a></li>
+					</ul>
+				</li>
+				-->
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<!-- prefix free to deal with vendor prefixes -->
+<script src="http://thecodeplayer.com/uploads/js/prefixfree-1.0.7.js" type="text/javascript" type="text/javascript"></script>
+
+<!-- jQuery -->
+<script src="http://thecodeplayer.com/uploads/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" charset="utf-8">
+/*jQuery time*/
+$(document).ready(function(){
+	//Build a table
+	var source = {id:"root",list:[
+		{id:"item1",dname:"Events",icon:"icon-bar-chart",list:[
+			{id:"item4",dname:"Ocean",icon:"",list:[
+				{id:"item22",dname:"Salinity",icon:"",list:[
+					{id:"item13",dname:"Positive Anomoly",list:[]},
+					{id:"item14",dname:"Negative Anomoly",list:[]}
+				]},
+				{id:"item23",dname:"Dissolved 0^2",icon:"",list:[
+					{id:"item13",dname:"Positive Anomoly",list:[]},
+					{id:"item14",dname:"Negative Anomoly",list:[]}
+				]},
+				{id:"item24",dname:"Sigma T-density",icon:"",list:[
+					{id:"item13",dname:"Positive Anomoly",list:[]},
+					{id:"item14",dname:"Negative Anomoly",list:[]}
+				]}
+			]},
+			{id:"item5",dname:"Atmosphere",icon:"",list:[
+				{id:"item5",dname:"Wind Speed",icon:"",list:[
+					{id:"item13",dname:"Positive Anomoly",list:[]},
+					{id:"item14",dname:"Negative Anomoly",list:[]}
+				]},
+				{id:"item6",dname:"Air Temperature",icon:"",list:[
+					{id:"item13",dname:"Positive Anomoly",list:[]},
+					{id:"item14",dname:"Negative Anomoly",list:[]}
+				]}
+			]},
+			{id:"item6",dname:"Terrestrial",icon:"",list:[
+				{id:"item5",dname:"Something",icon:"",list:[
+					{id:"item13",dname:"Positive Anomoly",list:[]},
+					{id:"item14",dname:"Negative Anomoly",list:[]}
+				]},
+				{id:"item6",dname:"Another",icon:"",list:[
+					{id:"item13",dname:"Positive Anomoly",list:[]},
+					{id:"item14",dname:"Negative Anomoly",list:[]}
+				]}
+			]}
+		]},
+		{id:"item2",dname:"Locations",icon:"icon-globe",list:[
+			{id:"item7",dname:"Buoy A",icon:"",list:[
+				{id:"item13",dname:"Depth: 1m",list:[]},
+				{id:"item14",dname:"Depth: 5m",list:[]},
+				{id:"item15",dname:"Depth: 10m",list:[]}
+			]},
+			{id:"item8",dname:"Buoy B",icon:"",list:[
+				{id:"item16",dname:"Depth: 1m",list:[]},
+				{id:"item17",dname:"Depth: 2m",list:[]},
+				{id:"item18",dname:"Depth: 5m",list:[]}
+			]},
+			{id:"item9",dname:"Buoy C",icon:"",list:[
+				{id:"item19",dname:"Depth: 5m",list:[]},
+				{id:"item20",dname:"Depth: 12m",list:[]},
+				{id:"item21",dname:"Depth: 100m",list:[]}
+			]}
+		]},
+		{id:"item3",dname:"Time",icon:"icon-calendar",list:[
+			{id:"item10",dname:"Years",list:[]},
+			{id:"item11",dname:"Months",list:[]},
+			{id:"item12",dname:"Weeks",list:[]}
+		]}
+	]};
+	
+	var listDepth = function(item){
+		return $(item).parents("ul").length-1;
+	}
+	
+	var setGradientByDepth = function(item){
+		//Get Gradient
+		var style = $(item).css("background");		
+		var oldA = style.match(/rgb\((([0-9]+), ([0-9]+), ([0-9]+))\)/g);
+		var newA = [];
+		$.each(oldA,function(i,oA){
+			var d = listDepth(item);
+			var r = parseInt(oA.match(/rgb\(([0-9]+), ([0-9]+), ([0-9]+)\)/)[1])+(d*15);
+			var g = parseInt(oA.match(/rgb\(([0-9]+), ([0-9]+), ([0-9]+)\)/)[2])+(d*15);
+			var b = parseInt(oA.match(/rgb\(([0-9]+), ([0-9]+), ([0-9]+)\)/)[3])+(d*10);
+			var nA = "rgb("+r+", "+g+", "+b+")";
+			newA[i] = nA
+			style = style.replace(oldA[i],newA[i]);
+		});
+		
+		$(item).css("background",style);
+	}
+	
+	var buildList = function(buildPoint,sourceData) {
+		$.each(sourceData,function(listIndex,listItem){
+			if(listItem.list.length > 0){
+				var newItem = $("<li/>");
+				newItem.append($("<h3/>").append($("<span/>").attr("class",listItem.icon),document.createTextNode(listItem.dname)));
+				newItem.append($("<ul/>"));
+				//$(newItem).contents("h3").click(depth);
+				buildPoint.append(newItem);
+				setGradientByDepth($(newItem).contents("h3"));
+				
+				
+				buildList($($(buildPoint.children()[listIndex]).children("ul")),listItem.list);
+				
+			} else {
+				var newItem = $("<li/>");
+				newItem.append($("<a/>").attr("href","#").text(listItem.dname));
+				newItem.append($("<ul/>"));
+				//$(newItem).contents("a").click(depth);
+				buildPoint.append(newItem);
+			}
+			//alert(listItem.name);
+		})
+	}
+	
+	buildList($("li.root-item>ul"),source.list);
+	
+	//Handle opening/closing of menus
+	$("#accordian h3").click(function(evt){
+		//Tree Manager
+		if(!$(this).parent("li").hasClass("root-item")){
+			//Manage opening and closing
+			if($(this).parent("li").next().is(":visible") || $(this).parent("li").prev().is(":visible")){
+				// IF opening THEN hide siblings
+				$(this).parent("li").siblings("li").slideUp('fast');
+				// AND open the current sublist
+				$(this).next("ul").slideDown('fast');
+				
+			} else {
+				// IF closing THEN re-show siblings
+				$(this).parent("li").siblings("li").slideDown('fast');
+				// AND show all nested items
+				$(this).parent("li").find("li").slideDown('fast');
+				// AND hide the current and all nested sublists
+				$(this).parent("li").find("ul").slideUp('fast');
+			}
+		}else{
+		// Reset the Table to original state
+			//If root THEN show all show all nested items
+			$(this).parent("li").find("ul li").slideDown('fast');
+			// AND hide the all nested sublists
+			$(this).parent("li").find("ul ul").slideUp('fast');
+			// AND show current ul
+			$(this).next("ul").slideDown('fast');
+		}
+	})
+});
+</script>

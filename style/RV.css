@@ -1,0 +1,400 @@
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
+
+.drawData{
+	margin-left: 0px;
+	display: inline-block;
+}
+
+body{
+    font-family: "Open Sans";
+    font-weight: 400;
+    color:#fff;
+    font-size: 12px;
+}
+/* Tool Bar Stylings */
+#toolbarBG{
+	background-color: #363636;
+	opacity: .4;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height:20px;
+}
+
+#toolbar_container{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 20px;
+	z-index: 999;
+}
+
+#toolbar_container span{
+	margin-left: 10px;
+	margin-top: 5px;
+}
+
+#toolbar_button:active{
+	background-color: #6f6f6f;
+}
+
+.tbButton{
+	margin: 2px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #e74c3c;
+	border: 1px #e74c3c solid;
+	color: #fff;
+	font-size: 15px;
+	cursor: pointer;
+	font-family: "Open Sans";
+	outline:none;
+	box-shadow: 1px 1px 0px #363636;
+	margin: 0 auto;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.tbButton:active{
+	background-color: #fff;
+	border: 1px #e74c3c solid;
+	color: #e74c3c;
+	box-shadow: none;
+}
+
+.toolBarButton{
+	font-size: 12px;
+}
+
+/* End Tool Bar */
+.displaySelection text{
+	font-weight:600;
+}
+.hide{
+	display: none;
+}
+.above{
+	background-color: #E74C3C !important;
+}
+.sVolunteer{
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+}
+.sDropContainer{
+	display: inline-block !important;
+	width: 20px;
+	border: 1px #2C3E50 dashed;
+	background-color: #3498DB;
+	margin-bottom: 12px;
+}
+.pVolunteer{
+	margin-bottom: 0px !important;
+}
+.pBuffer{
+	display: none;
+	margin-left: 15px;
+}
+.pDropContainer{
+	display: block !important;
+	border: 2px #2C3E50 dashed;
+	height: 20px;
+	text-align: center;
+	font-weight: 600;
+	background-color: #3498DB;
+	border-radius: 8px;
+	margin-left: 15px;
+}
+.sBuffer{
+	display: none;
+}
+.bDropContainer{
+	margin-left: 10px;
+	display: block !important;
+	border:1px #2C3E50 dashed;
+	height:10px;
+	text-align: center;
+	font-weight: 600;
+	background-color: #3498DB;
+	border-radius: 8px;
+}
+.bVolunteer{
+	margin-top:0px !important;
+	margin-bottom: 0px !important;
+}
+.bVolunteer-first{
+	margin-top:-10px !important;
+	margin-bottom: 0px !important;
+}
+.bBuffer{
+	display: none;
+}
+.titleSelected{
+	background-color: #F77A52 !important;
+	color: #000 !important;
+	cursor:url(../images/swap1.png), auto;
+}
+.possiSwap{
+	background-color: #F0F0F0 !important;
+	color:#000;
+	border-top:1px solid #363636;
+	border-left:1px solid #363636;
+	cursor:url(../images/swap1.png), auto;
+}
+.possiSwap:hover{
+	background-color: #c7c7c7 !important;
+	color: #000 !important;
+}
+.datum{
+<<<<<<< HEAD
+	fill:teal;
+	cursor: help;
+}
+.datum:hover{
+	fill: #69F3FF;
+	fill-opacity: 1 !important;
+=======
+	height:22px;
+	background-color: teal;
+	display: inline-block;
+	cursor: help;
+	z-index: -200;
+}
+.datum:hover{
+	background-color: #69F3FF;
+	opacity: 1 !important;
+>>>>>>> e3e3456b3d4c09b54d58091038795ded7f0a44b5
+
+}
+.btitle{
+	height:22px;
+	background-color: #304266;
+	text-align: center;
+    display: inline-block;
+    white-space: nowrap;
+    /*float:left;*/
+    position: relative;
+    z-index: 200;
+}
+
+.btitle:hover{
+	background-color: #5b7ec4;
+	color: #fff;
+}
+
+.bLabel{
+	margin-top: 2px;
+	margin-bottom: 15px;
+	margin-left: 4px;
+	cursor:url(../images/swap1.png), auto;
+	float:left;
+}
+
+.bGrip{
+	cursor: -webkit-grab; cursor: -moz-grab;
+	padding-top: 3px;
+	padding-right: 2px;
+	padding-left: 2px;
+	float:right;
+}
+
+.bGrip img{
+	margin-bottom: 25px;
+}
+
+.band{
+    background-color: #fff;
+    margin: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+    white-space: nowrap;
+}
+.Band-Container{
+	background-color: #000;
+}
+.sGrip{
+	display: inline-block;
+	float: right;
+    margin-right: 10px;
+    margin-top: 5px;
+    cursor: -webkit-grab; cursor: -moz-grab;
+}
+.sTitle{
+	background-color: #304266;
+	padding: 5px;
+	padding-left: 2px;
+	padding-right: 2px;
+	display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor:url(../images/swap1.png), auto;
+}
+
+.sTitle:hover{
+	background-color: #5b7ec4;
+	color: #fff;
+}
+
+.sHeader{
+	background-color: #304266;
+	padding: 0px;
+    margin-bottom: 10px;
+}
+.timebar{
+    margin-bottom: 20px;
+}
+
+.tick text{
+	font-size: 8px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: geometricPrecision;
+}
+
+.xaxis path,
+.xaxis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: geometricPrecision;
+}
+
+.stack{
+	background-color: #d9e8f4;
+	display: inline-block;
+	margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.dragStack{
+	width:75px;
+	height:50px;
+	background-color: #d9e8f4;
+	cursor: -webkit-grabbing; cursor: -moz-grabbing;
+}
+.dsHeader{
+	width:75px;
+	height:12px;
+	background-color: #304266;
+	cursor: -webkit-grabbing; cursor: -moz-grabbing;
+}
+
+.dragBand{
+	width:80px;
+	height:10px;
+	background-color: #fff;
+	cursor: -webkit-grabbing; cursor: -moz-grabbing;
+}
+.dbtitle{
+	background-color: #304266;
+	float:left;
+	width:20px;
+	height:10px;
+	cursor: -webkit-grabbing; cursor: -moz-grabbing;
+}
+
+.pGrip{
+	display: inline-block;
+	float: right;
+    margin-right: 10px;
+    margin-top: 5px;
+    cursor: -webkit-grab; cursor: -moz-grab;
+}
+.pTitle{
+	background-color: #293b46;
+	padding-top: 5px;
+	padding-left: 10px;
+	padding-right: 2px;
+	padding-bottom: 3px;
+	padding-right: 10px;
+	display: inline-block;
+	padding-left: auto;
+	cursor:url(../images/swap1.png), auto;
+}
+
+.pTitle:hover{
+	background-color: #5c839b;
+	color: #fff;
+}
+
+.pHeader{
+	background-color: #293b46;
+	padding: 0px;
+	height:25px;
+}
+/*
+	NOTE - renamed to .panelRV because of a naming conflict with bootstrap-theme.css
+*/
+.panelRV{
+   background-color: #5f7a86;
+   display: inline-block;
+   margin-bottom:20px;
+   margin-right: 20px; 
+   margin-left: 15px;
+}
+
+.dragPanel{
+	width:100px;
+	height:70px;
+	background-color: #5f7a86;
+	cursor: -webkit-grabbing; cursor: -moz-grabbing;
+}
+.dpHeader{
+	width:100px;
+	height:15px;
+	background-color: #293b46;
+	cursor: -webkit-grabbing; cursor: -moz-grabbing;
+}
+
+/* NOTE: .g is different from the g tag used in the svg's this is related to the grips/drag handlers */
+.g{
+	border-radius: 50%;
+	width: 3px;
+	height: 3px;
+	background-color: #f25f26;
+	margin: 1px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	display: inline-block;
+}
+.gline{
+	display: inline-block;
+    margin-right:5px;
+}
+
+.extent:hover{
+	opacity: 0.5;
+}
+.background{
+	fill:rgb(100,100,100);fill-opacity:1.0;
+}
+.background:hover{
+	fill:rgb(150,150,150);fill-opacity:1.0;
+}
+tr{
+	border: solid #fff 1px;
+	font-family: "Open Sans";
+	font-weight: 400;
+	text-align: left;
+	color:#fff;
+}
+td{
+	padding:2px;
+	background-color: #404041;
+	border: 1px #fff solid;
+}
+
+td:nth-child(1){
+	background-color: #58585B;
+}
+.crossover{
+	color:#FF2525;
+}

@@ -8,7 +8,7 @@ $(document).ready(function(){
 
 		var themeArray,locArray,timeArray;
 		//var url = "http://eventviewer.asap.um.maine.edu:8080/evolapservice/rest/evquery";
-		var url = "http://eventviewer.asap.um.maine.edu:8080/evolapserviceDev/rest/evquery";
+		//var url = "http://eventviewer.asap.um.maine.edu:8080/evolapserviceDev/rest/evquery";
 		//var url = "http://141.114.58.184:8080/evolapservice/rest/evquery"
 		//var url = window.location.pathname
 

@@ -14,14 +14,17 @@ $(document).ready(function(){
 		//var url = window.location.pathname
 
 		if(type == "real") {
+			console.log("Getting real data");
 			themeArray = $("#bev").children().map(function(){return $(this).find(".ev_filter_data").text()}).get();
 			locArray = $("#bloc").children().map(function(){return $(this).find(".ev_filter_data").text()}).get();
 			timeArray = $("#btime").children().map(function(){return $(this).find(".ev_filter_data").text()}).get();
+			console.log(themeArray);
 		}
 
 		if (type=='fake' || (themeArray.length == 0 && timeArray.length == 0 && locArray.length == 0)) {
+			console.log("Getting fake data");
 			//timeArray = ["[TimeFilter].[2001]","[TimeFilter].[2002]","[TimeFilter].[April]"];
-			timeArray = ["[TimeFilter].[2001]","[TimeFilter].[2002]","[Time].[Month].\&[April]"];
+			timeArray = ["[TimeFilter].[2001]","[TimeFilter].[2002]","[TimeFilter].[2003]","[TimeFilter].[2004]","[Time].[Month].\&[April]"];
 			//timeArray = ["{[TimeFilter].[2003].[April],[Gulf of Maine].[Coastal].[Western Maine Shelf].[B].[1-20],[Ocean].[Sigma-Tdensity].[Threshold].[Mixed125]}"];
 			//locArray = ["[Gulf of Maine].[Coastal].[Western Maine Shelf].[Buoy].[B].[Depth].[1-20]"];
 			//themeArray = ["[Ocean].[Sigma-Tdensity].[Threshold].[Mixed125]"];
@@ -51,7 +54,6 @@ $(document).ready(function(){
 			       }, false);
 
 			       xhr.addEventListener("progress", function(evt) {
-			       	console.log("asdf")
 			           if (evt.lengthComputable) {
 			               var percentComplete = evt.loaded / evt.total;
 			               console.log(percentComplete)
@@ -109,6 +111,6 @@ $(document).ready(function(){
 	}
 	
 	$("#continue").click(function(){
-		query_submit("fake");
+		query_submit("real");
 	});
 })

@@ -12,7 +12,7 @@ $(document).ready(function(){
 		if(useDev) url = "http://eventviewer.asap.um.maine.edu:8080/evolapserviceDev/rest/evquery";
 		//var url = "http://141.114.58.184:8080/evolapservice/rest/evquery"
 		//var url = window.location.pathname
-
+		
 		if(type == "real") {
 			themeArray = $("#bev").children().map(function(){return $(this).find(".ev_filter_data").text()}).get();
 			locArray = $("#bloc").children().map(function(){return $(this).find(".ev_filter_data").text()}).get();
